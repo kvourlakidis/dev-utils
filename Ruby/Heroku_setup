@@ -1,0 +1,75 @@
+# install Heroku CLI
+$ heroku version
+$ sudo apt show heroku
+$ whereis heroku
+heroku: usr/bin/heroku 
+
+$ heroku login 
+
+$ heroku auth:whoami
+1988kirill@gmail.com
+
+$ heroku apps
+$ heroku apps:info
+
+
+STEPS FOR MIGRATING APP TO HEROKU 
+
+1. Add version control with Git:
+
+$ git init
+$ git add .
+$ git commit -m 'initial commit'
+
+2. Move database to PG
+
+Gemfile:
+# gem 'sqlite3'
+
+group :development do
+  gem 'sqlite3'
+end 
+
+group :production do
+  gem 'pg'
+end
+
+$ bundle install --without production
+
+$ git add .
+$ git commit -m 'Use postgres as production database'
+
+3. Create Heroku app
+
+$ heroku create
+# this creates and app with a random generated name
+$ git push heroku master
+$ heroku run rake db:migrate
+
+4. Configure Devise
+
+Using Devise on Heroku with Ruby on Rails 3.2 requires setting:
+
+config.assets.initialize_on_precompile = false
+
+# END
+
+Notes:
+
+Heroku uses an ephemeral filesystem which means that 
+any files created by the app will be discarded on restart.
+
+So file uploads in the public folder will be discarded when app is restarted.
+
+Work around: use public cloud storage service like Amazon S3 or Rackspace.
+
+How to make Carrierwave work on Heroku:
+
+[https://github.com/carrierwaveuploader/carrierwave/wiki/How-to%3A-Make-Carrierwave-work-on-Heroku]
+
+Amazon S3 beginners guide:
+
+[http://www.hongkiat.com/blog/amazon-s3-the-beginners-guide/]
+
+
+

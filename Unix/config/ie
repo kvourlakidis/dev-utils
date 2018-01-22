@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+declare -A urlOption
+urlOption["default"]="https://xkcd.com/"
+urlOption["local"]="http://localhost:3000"
+urlOption["localhost"]=${urlOption["local"]}
+urlOption["home"]="https://news.ycombinator.com/news"
+urlOption["news"]=${urlOption["home"]}
+urlOption["bbc"]="http://www.bbc.co.uk/news"
+# Set the logging level (0-info, 1-warn, 2-err, 3-fatal)
+logLevel="--log-level=3"
+# --new-window - opens a new browser window
+#
+if (( $# == 1 ))
+then
+  if [[ ${urlOption[$1]} ]]
+  then
+    url=${urlOption[$1]}
+  else
+    url="https://www.google.co.uk/search?q=$1"
+  fi
+  if pgrep "chrome" > /dev/null
+  then
+    /usr/bin/google-chrome $logLevel $url
+  else
+    /usr/bin/google-chrome $logLevel $url &
+  fi
+elif (( $# == 0 ))
+then
+  if pgrep "chrome" > /dev/null
+  then
+    /usr/bin/google-chrome $logLevel ${urlOption[default]}
+  else
+    /usr/bin/google-chrome $logLevel ${urlOption[default]} &
+  fi
+else
+  echo "too many aguments"
+fi

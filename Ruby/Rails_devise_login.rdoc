@@ -1,0 +1,90 @@
+Devise/Omniauth Tutorial by Hathy A from Digitalocean.
+[https://www.digitalocean.com/community/tutorials/how-to-configure-devise-and-omniauth-for-your-rails-application]
+
+$ rails new devise-app
+
+Modify Gemfile:
+  gem 'devise'
+  gem 'omniauth' # not necessary
+  gem 'omniauth-facebook'
+  gem 'omniauth-twitter'
+  # gem 'omniauth-amazon'
+  # gem 'omniauth-google'
+  # gem 'omniauth-github'
+  # gem 'omniauth-digitalocean'
+  # gem 'omniauth-google-oauth2'
+
+$ bundle install
+$ rails g scaffold Product name:string price:integer description:text
+$ rake db:migrate
+
+Modify config/routes.rb:
+  Rails.application.routes.draw do
+    devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+    resources :products
+    root 'products#index'
+  end
+
+$ rails generate devise:install
+$ rails generate devise User
+$ rake db:migrate
+
+Modify app/controllers/application_controller.rb:
+  class ApplicationController < ActionController::Base
+    protect_from_forgery with: :exception
+    before_action :authenticate_user!
+  end
+
+$ rails g migration AddColumnsToUsers provider uid name
+$ rake db:migrate
+
+Get the App ID and App Secret from the OAuth Service Provider:
+Provide a relevant callback url to the service provider. Examples:
+http://localhost:3000/users/auth/twitter/callback
+http://localhost:3000/users/auth/google/callback
+
+Modify config/initializers/devise.rb:
+  config.omniauth :facebook, 'APP_ID', 'APP_SECRET'
+  config.omniauth :twitter, 'APP_ID', 'APP_SECRET'
+
+
+Modify app/modes/user.rb:
+  class User < ActiveRecord::Base
+    devise :database_authenticatable, :registerable,
+           :recoverable, :rememberable, :trackable, :validatable,
+        :omniauthable, :omniauth_providers => [:facebook, :twitter]
+
+    def self.from_omniauth(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.email = auth.info.email
+        user.name = auth.info.name
+        user.password = Devise.friendly_token[0,20]
+      end
+    end
+  end
+
+
+Modify app/controllers/callbacks_controller.rb:
+  class CallbacksController < Devise::OmniauthCallbacksController
+    def facebook
+      @user = User.from_omniauth(request.env["omniauth.auth"])
+      sign_in_and_redirect @user
+    end
+
+    def twitter
+      @user = User.from_omniauth(request.env["omniauth.auth"])
+      sign_in_and_redirect @user
+    end
+  end
+  
+Add a separate method for each OAuth provider to callbacks_controller.
+
+
+Facebook REQUIRES the following to be filled out for production apps:
+  - Site URL (obviously...)
+  - Privacy Policy URL
+  - Terms of Service URL
+  - DISABLE Development/Sandbox Mode (under App Review)
+

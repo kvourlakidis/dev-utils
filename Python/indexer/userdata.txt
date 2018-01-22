@@ -1,0 +1,18 @@
+#!/bin/bash
+yum update -y
+yum install -y httpd24 php56 mysql55-server php56-mysqlnd
+service httpd start
+/bin/mkdir /home/ec2-user/Documents
+wget http://s3-eu-west-1.amazonaws.com/hand-it-in/sources.zip -P /home/ec2-user/Documents
+wget http://s3-eu-west-1.amazonaws.com/hand-it-in/susps.zip   -P /home/ec2-user/Documents
+unzip /home/ec2-user/Documents/sources.zip -d /home/ec2-user/Documents
+unzip /home/ec2-user/Documents/susps.zip   -d /home/ec2-user/Documents
+wget http://s3-eu-west-1.amazonaws.com/hand-it-in/cgi-bin/index.py -O /var/www/cgi-bin/index.py
+wget http://s3-eu-west-1.amazonaws.com/hand-it-in/cgi-bin/main.py  -O /var/www/cgi-bin/main.py
+wget http://s3-eu-west-1.amazonaws.com/hand-it-in/cgi-bin/match.py  -O /var/www/cgi-bin/match.py
+wget http://s3-eu-west-1.amazonaws.com/hand-it-in/cgi-bin/writer.py  -O /var/www/cgi-bin/writer.py
+wget http://s3-eu-west-1.amazonaws.com/hand-it-in/cgi-bin/responder.py  -O /var/www/cgi-bin/responder.py
+/bin/chmod 755 /var/www/cgi-bin/main.py
+/bin/chmod o+w /home/ec2-user/Documents
+/bin/chmod o+rx /home/ec2-user
+echo "READY" >> tmp/msg

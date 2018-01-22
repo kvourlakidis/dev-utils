@@ -1,0 +1,4 @@
+#!/usr/bin/env python
+
+s = "print '#!/usr/bin/env python\\n\\ns = ' + repr(s) + '\\n' + s"
+print '#!/usr/bin/env python\n\ns = ' + repr(s) + '\n' + s
