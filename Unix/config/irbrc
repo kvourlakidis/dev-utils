@@ -1,3 +1,5 @@
+# Configuration file for irb
+# $HOME/.irbrc
 IRB.conf[:BACK_TRACE_LIMIT] = 0
 
 require "awesome_print"

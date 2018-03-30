@@ -1,5 +1,11 @@
 #!/bin/sh
-# trim all mounted file systems which support it
+# Trim all mounted file systems which support it.
+# To run daily, put a copy of this file into:
+# /etc/cron.daily
+# To run weekly, put a copy of this file into:
+# /etc/cron.weekly
+# Required permissions:
+# -r-xr-xr-x
 LOG=/var/log/trim.log
 /sbin/fstrim -v --all >>$LOG || true
 echo -e "Time: $(date)\n" >>$LOG
