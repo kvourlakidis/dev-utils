@@ -50,4 +50,12 @@ make
 # Get detailed information about Wireless interface:
 sudo iwlist [interface] scanning
 
+# Git
+git config --global credentials.store store
+git push origin --delete branchName
+
+# Jobs
+jobs
+fg %[job_number]
+bg %[job_number]
 
