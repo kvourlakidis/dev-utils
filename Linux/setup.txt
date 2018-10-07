@@ -1,0 +1,33 @@
+# update 
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+
+# install utils
+sudo apt install vim
+sudo apt install xclip
+sudo apt install gcc
+sudo apt install make
+sudo apt install libelf-dev
+sudo apt install net-tools
+sudo apt install git
+sudo apt install dkms
+sudo apt install geany
+
+# install java
+sudo apt install openjdk-8-jdk
+sudo apt install groovy
+sudo apt install libcanberra-gtk-module
+
+# set java_home variable
+echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ~/.bashrc
+
+# set up symbolic links
+sudo ln -s /usr/bin/nautilus /usr/local/bin/naut
+sudo ln -s /usr/bin/xdg-open /usr/local/bin/openf
+
+# installing the TP-LINK T9UH driver...
+# https://github.com/nazar-pc/RTL8814AU
+git https://github.com/nazar-pc/RTL8814AU.git
+
+

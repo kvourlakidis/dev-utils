@@ -1,0 +1,53 @@
+# Useful Linux commands
+
+# Print OS information
+cat /etc/os-release
+cat /proc/version
+uname -s
+uname -r 
+lsmod
+lsusb
+lsblk
+
+# Package management
+apt update
+apt upgrade
+apt autoremove
+apt install | remove | purge pkg
+apt list | search | show pkg
+
+# Network
+ifconfig
+ifconfig -a 
+ifconfig wlan1 up
+ifconfig wlan1 down
+rfkill unblock wifi
+
+# Re-initialize the terminal
+reset
+tput reset
+
+# Shell info
+echo $SHELL
+echo $0
+echo $USER
+whoami
+echo $HOSTNAME
+hostname
+cat /etc/passwd
+awk -F : '{print $1}' /etc/passwd
+
+# Open file explorer
+nautilus .
+
+# Links
+ln -s TARGET LINK_NAME
+
+# Make
+make clean
+make
+
+# Get detailed information about Wireless interface:
+sudo iwlist [interface] scanning
+
+

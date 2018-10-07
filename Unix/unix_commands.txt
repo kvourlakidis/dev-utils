@@ -1,5 +1,0 @@
-Get detailed information about Wireless interface:
-$ sudo iwlist [interface] scanning
-where [interface] is the name of the network device ($ ifconfig)
-
-
