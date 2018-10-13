@@ -1,0 +1,10 @@
+# VIM
+*.swp
+Session.vim
+
+# Log files
+*.log
+
+# General
+*.DS_Store
+._*
