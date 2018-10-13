@@ -32,7 +32,7 @@ heroku logs --tail
 heroku config
 heroku config:set VARIABLE_NAME=variable_value
 
-# Misc:
+# Create a new app:
 rails _5.1.6_ new my_app_name
 
 # Rails directory info:
