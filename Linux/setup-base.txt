@@ -12,6 +12,21 @@ sudo apt install libelf-dev
 sudo apt install net-tools
 sudo apt install git
 sudo apt install dkms
+
+# install Ruby dependencies
+sudo apt install autoconf
+sudo apt install bison
+sudo apt install build-essential
+sudo apt install libssl-dev
+sudo apt install libyaml-dev
+sudo apt install libreadline-dev
+sudo apt install zlib1g-dev
+sudo apt install libncurses5-dev
+sudo apt install libffi-dev
+sudo apt install libgdbm5
+sudo apt install libgdbm-dev
+
+# install geany editor
 sudo apt install geany
 
 # install java

@@ -1,0 +1,42 @@
+# Setting up Ruby
+
+## Using rbenv
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+source ~/.bashrc
+### Verify that rbenv is properly installed: 
+type rbenv
+
+### Install ruby-build plugin
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+### Verify that ruby-build was properly installed:
+rbenv install -l
+rbenv install --list
+
+### Install Ruby (version 2.5.1):
+rbenv install 2.5.1
+rbenv global 2.5.1
+
+### Verify that Ruby was properly installed:
+ruby -v
+
+### Turn off documentation generation for gems:
+echo "gem: --no-document" >> ~/.gemrc
+gem env home
+gem install bundler
+
+### Install rails
+gem install rails
+gem install rails -v 4.2.7
+
+#### Update shims:
+rbenv rehash
+
+#### Updating rbenv:
+cd ~/.rbenv && git pull
+
+#### Uninstalling Ruby versions:
+rbenv uninstall 2.1.3
+
