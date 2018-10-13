@@ -12,6 +12,7 @@ sudo apt install libelf-dev
 sudo apt install net-tools
 sudo apt install git
 sudo apt install dkms
+sudo apt install curl
 
 # install Ruby dependencies
 sudo apt install autoconf
@@ -25,6 +26,11 @@ sudo apt install libncurses5-dev
 sudo apt install libffi-dev
 sudo apt install libgdbm5
 sudo apt install libgdbm-dev
+sudo apt install libsqlite3-dev
+
+# install Node.JS
+sudo apt install nodejs
+sudo apt install npm
 
 # install geany editor
 sudo apt install geany

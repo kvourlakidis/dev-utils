@@ -40,3 +40,5 @@ cd ~/.rbenv && git pull
 #### Uninstalling Ruby versions:
 rbenv uninstall 2.1.3
 
+### Install heroku cli
+sudo snap install heroku --classic

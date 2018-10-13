@@ -64,3 +64,7 @@ bg %[job_number]
 uptime | xclip
 xclip -o > uptime.log
 cat uptime.log
+
+# SSH
+ssh-keygen -t rsa -b 4096
+
