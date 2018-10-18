@@ -13,6 +13,9 @@ sudo apt install net-tools
 sudo apt install git
 sudo apt install dkms
 sudo apt install curl
+sudo apt install exfat-fuse exfat-utils
+sudo apt install nfs-common
+sudo apt install dconf-editor
 
 # install Ruby dependencies
 sudo apt install autoconf

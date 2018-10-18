@@ -6,9 +6,10 @@ then
   i=1
   for arg in $@
   do
-    echo $i $arg
+    echo "\$$i $arg"
     i=$((i+1))
   done
+  echo "All args: $*"
 else
   echo "No arguments :("
 fi

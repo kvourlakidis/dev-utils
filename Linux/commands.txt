@@ -33,6 +33,7 @@ echo $SHELL
 echo $0
 echo $USER
 whoami
+id
 echo $HOSTNAME
 hostname
 cat /etc/passwd
@@ -67,4 +68,12 @@ cat uptime.log
 
 # SSH
 ssh-keygen -t rsa -b 4096
+
+# Mount
+sudo mount -t nfs 192.168.1.241:/mnt/TestVolume/MediaDataset /mnt/MediaDataset
+sudo umount /mnt/MediaDataset
+
+# Swap
+sudo swapon --show
+free -h
 
