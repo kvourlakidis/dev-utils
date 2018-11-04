@@ -23,6 +23,16 @@ ifconfig -a
 ifconfig wlan1 up
 ifconfig wlan1 down
 rfkill unblock wifi
+wpa_supplicant -D[driver] -i[interface] -c[config_file] -B
+wpa_supplicant -Dnl80211 -iwlan1 -c./wpa_0_8.conf -B
+killall wpa_supplicant
+wpa_cli -p /var/run/wpa_supplicant scan
+wpa_cli -p /var/run/wpa_supplicant scan_results
+# Enable the DHCP client
+dhclient [interface]
+# Change the default system gateway
+route del default wlan0
+route add default gw 192.168.1.1
 
 # Re-initialize the terminal
 reset
@@ -76,4 +86,17 @@ sudo umount /mnt/MediaDataset
 # Swap
 sudo swapon --show
 free -h
+
+# Processes
+ps -ef
+ps aux
+kill [pid]
+kill -9 [pid]
+killall [name]
+pkill [pattern]
+
+# Drivers
+# /lib/modules/$(uname -r)/kernel/drivers/net/wireless
+sudo insmod 88x2bu.ko
+lsmod
 
