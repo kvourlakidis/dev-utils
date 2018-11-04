@@ -1,0 +1,302 @@
+Tutorial from:
+[http://sourcey.com/rails-4-omniauth-using-devise-with-twitter-facebook-and-linkedin/]
+
+1. Add authentication gems:
+  gem 'devise'
+  gem 'omniauth'
+  gem 'omniauth-twitter'
+  gem 'omniauth-facebook'
+  gem 'omniauth-linkedin'
+
+2. Generation migrations and models:
+$ rails generate devise:install
+
+===============================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  1. Ensure you have defined default url options in your environments files. Here
+     is an example of default_url_options appropriate for a development environment
+     in config/environments/development.rb:
+
+       config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+     In production, :host should be set to the actual host of your application.
+
+  2. Ensure you have defined root_url to *something* in your config/routes.rb.
+     For example:
+
+       root to: "home#index"
+
+  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
+     For example:
+
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+  4. You can copy Devise views (for customization) to your app by running:
+
+       rails g devise:views
+
+===============================================================================
+
+$ rails generate devise user
+$ rails generate migration
+$ rails generate migration add_name_to_users name:string
+$ rails generate model identity user:references provider:string uid:string
+
+# Modify the db/migrate/[timestamp]_devise_create_users.rb to configure
+# the Devise modules you will use.
+# We usually enable the "confirmable" module when enabling email signups.
+# Uncomment the relevant fields in the create_users migration.
+# Add :confirmable to user.rb.
+
+~/app/models/Identity.rb
+class Identity < ActiveRecord::Base
+  belongs_to :user
+  validates :user, :uid, :provider, presence: true
+  validates :uid, uniqueness: { scope: :provider }
+
+  def self.find_for_oauth(auth)
+    find_or_create_by(uid: auth.uid, provider: auth.provider)
+  end
+end
+
+~/app/config/initializerz/devise.rb:
+Devise.setup do |config|
+...
+  config.omniauth :facebook, "KEY", "SECRET"
+  config.omniauth :twitter, "KEY", "SECRET"
+  config.omniauth :linked_in, "KEY", "SECRET"
+...
+end
+
+~/config/environments/[environment].rb:
+...
+# General Settings
+config.app_domain = 'somedomain.com'
+
+# Email
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.perform_deliveries = true
+config.action_mailer.default_url_options = { host: config.app_domain }
+config.action_mailer.smtp_settings = {
+  address: 'smtp.gmail.com',
+  port: '587',
+  enable_starttls_auto: true,
+  user_name: 'someuser',
+  password: 'somepass',
+  authentication: :plain,
+  domain: 'somedomain.com'
+}
+...
+
+~/config/routes.rb:
+...
+devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
+# for getting users email address and any additional info
+match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+...
+
+~/app/controllers/omniauth_callbacks_controller.rb:
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def self.provides_callback_for(provider)
+    class_eval %Q{
+      def #{provider}
+        @user = User.find_for_oauth(env["omniauth.auth"], current_user)
+
+        if @user.persisted?
+          sign_in_and_redirect @user, event: :authentication
+          set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
+        else
+          session["devise.#{provider}_data"] = env["omniauth.auth"]
+          redirect_to new_user_registration_url
+        end
+      end
+    }
+  end
+
+  [:twitter, :facebook, :linked_in].each do |provider|
+    provides_callback_for provider
+  end
+
+  def after_sign_in_path_for(resource)
+    if resource.email_verified?
+      super resource
+    else
+      finish_signup_path(resource)
+    end
+  end
+end
+
+~/app/models/user.rb:
+class User < ActiveRecord::Base
+  TEMP_EMAIL_PREFIX = 'change@me'
+  TEMP_EMAIL_REGEX = /\Achange@me/
+
+  # Include default devise modules. Others available are:
+  # :lockable, :timeoutable
+  devise :database_authenticatable, :registerable, :confirmable,
+    :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+
+  validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+
+  def self.find_for_oauth(auth, signed_in_resource = nil)
+
+    # Get the identity and user if they exist
+    identity = Identity.find_for_oauth(auth)
+
+    # If a signed_in_resource is provided it always overrides the existing user
+    # to prevent the identity being locked with accidentally created accounts.
+    # Note that this may leave zombie accounts (with no associated identity) which
+    # can be cleaned up at a later date.
+    user = signed_in_resource ? signed_in_resource : identity.user
+
+    # Create the user if needed
+    if user.nil?
+
+      # Get the existing user by email if the provider gives us a verified email.
+      # If no verified email was provided we assign a temporary email and ask the
+      # user to verify it on the next step via UsersController.finish_signup
+      email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
+      email = auth.info.email if email_is_verified
+      user = User.where(:email => email).first if email
+
+      # Create the user if it's a new registration
+      if user.nil?
+        user = User.new(
+          name: auth.extra.raw_info.name,
+          #username: auth.info.nickname || auth.uid,
+          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+          password: Devise.friendly_token[0,20]
+        )
+        user.skip_confirmation!
+        user.save!
+      end
+    end
+
+    # Associate the identity with the user if needed
+    if identity.user != user
+      identity.user = user
+      identity.save!
+    end
+    user
+  end
+
+  def email_verified?
+    self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
+end
+
+~/app/controllers/users_controller.rb:
+class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  ...
+
+  # GET /users/:id.:format
+  def show
+    # authorize! :read, @user
+  end
+
+  # GET /users/:id/edit
+  def edit
+    # authorize! :update, @user
+  end
+
+  # PATCH/PUT /users/:id.:format
+  def update
+    # authorize! :update, @user
+    respond_to do |format|
+      if @user.update(user_params)
+        sign_in(@user == current_user ? @user : current_user, :bypass => true)
+        format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # GET/PATCH /users/:id/finish_signup
+  def finish_signup
+    # authorize! :update, @user
+    if request.patch? && params[:user] #&& params[:user][:email]
+      if @user.update(user_params)
+        # comment out next line if forcing email confirmation
+        @user.skip_reconfirmation!
+        sign_in(@user, :bypass => true)
+        redirect_to @user, notice: 'Your profile was successfully updated.'
+      else
+        @show_errors = true
+      end
+    end
+  end
+
+  # DELETE /users/:id.:format
+  def destroy
+    # authorize! :delete, @user
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def user_params
+      accessible = [ :name, :email ] # extend with your own params
+      accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
+      params.require(:user).permit(accessible)
+    end
+end
+
+~/app/views/users/finish_signup.html.erb
+<div id="add-email" class="container">
+  <h1>Add Email</h1>
+  <%= form_for(current_user, :as => 'user', :url => finish_signup_path(current_user), :html => { role: 'form'}) do |f| %>
+    <% if @show_errors && current_user.errors.any? %>
+      <div id="error_explanation">
+        <% current_user.errors.full_messages.each do |msg| %>
+          <%= msg %><br>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.label :email %>
+      <div class="controls">
+        <%= f.text_field :email, :autofocus => true, :value => '', class: 'form-control input-lg', placeholder: 'Example: email@me.com' %>
+        <p class="help-block">Please confirm your email address. No spam.</p>
+      </div>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Continue', :class => 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+~/app/controllers/application_controller.rb:
+class ApplicationController < ActionController::Base
+
+  ...
+  
+  # The following method is used to ensure the user has provided
+  # all the necessary information before accessing a specific resource.
+  # Can be used in a before_filter like so:
+  # before_filter :ensure_signup_complete, only: [:new, :create, :update, :destroy]
+  def ensure_signup_complete
+    # Ensure we don't go into an infinite loop
+    return if action_name == 'finish_signup'
+
+    # Redirect to the 'finish_signup' page if the user
+    # email hasn't been verified yet
+    if current_user && !current_user.email_verified?
+      redirect_to finish_signup_path(current_user)
+    end
+  end
+end

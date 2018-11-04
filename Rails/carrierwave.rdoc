@@ -1,0 +1,14 @@
+Following:
+[http://stackoverflow.com/questions/21411988/rails-4-multiple-image-or-file-upload-using-carrierwave]
+
+$ rails new carrierwave-app
+
+gem 'carrierwave'
+
+$ rails generate uploader Avatar
+$ rails generate scaffold post title:string
+$ rails generate scaffold post_attachment post_id:integer avatar:string
+$ rake db:migrate
+$ rails g migration FixColumnName
+$ rails destroy uploader Avatar
+$ rails generate uploader File

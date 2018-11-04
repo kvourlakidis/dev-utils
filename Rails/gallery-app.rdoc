@@ -1,0 +1,61 @@
+Date: 25/12/2016
+Author: KV
+
+Commands:
+$ rails new gallery-app
+$ rails g scaffold artwork title:string description:string active:boolean
+$ rails g uploader Image
+$ rails g scaffold artwork_photo artwork_id:integer file:string active:boolean show:boolean
+$ rails g controller welcome index
+$ rails g devise:install
+
+===============================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  1. Ensure you have defined default url options in your environments files. Here
+     is an example of default_url_options appropriate for a development environment
+     in config/environments/development.rb:
+
+       config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+     In production, :host should be set to the actual host of your application.
+
+  2. Ensure you have defined root_url to *something* in your config/routes.rb.
+     For example:
+
+       root to: "home#index"
+
+  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
+     For example:
+
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+  4. You can copy Devise views (for customization) to your app by running:
+
+       rails g devise:views
+
+===============================================================================
+
+
+$ rails generate devise User
+$ rails generate devise:views
+$ rails generation migration add_admin_to_users admin:boolean
+
+Deploying on Heroku:
+
+$ bundle install --without production
+$ heroku git:remote -a liviavstudio
+$ git config --list
+$ git push heroku master
+$ heroku ps:scale web=1
+
+In Rails console:
+> ActiveRecord::Base.connection_config
+
+$ figaro heroku:set -e production
+
+$ rails generate migration add_artform_to_artworks artform:integer
+
+$ heroku domains
