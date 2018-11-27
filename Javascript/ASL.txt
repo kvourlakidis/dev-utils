@@ -1,0 +1,94 @@
+Javascript Automatic Semicolon Insertion (ASI)
+
+SEMICOLONS ARE ALLOWED:
+
+do Statement while ( Expression );
+var x = 4 + 4;
+myFunction(args);
+continue;
+return;
+break;
+throw Expression; // throw [no LineTerminator here] Expression;
+; // empty statement
+
+	Example of using an empty statement:
+
+	while(1); // infinite loop
+
+for ( Expression; Expression; Expression) Statement;
+
+
+WHERE SEMICOLONS MAY BE OMITTED:
+
+Approximately stated (by inimino.org):
+a). Before a closing brace 
+b). At the end of a program
+c). When the next token cannot be parsed otherwise
+
+Semicolons CANNOT be omitted from the for loop header. 
+
+Semicolons are implied at the end of the line only if 
+the first token of the subsequent line cannot be parsed
+as part of the same statement.
+
+ADVICE:
+
+for (node=getNode();
+     node.parent;
+     node=node.parent) ;
+
+None of the semicolons from the above loop can be omitted.
+The loop syntax requires a statement so we use a semicolon
+as an empty statement, even though it isn’t required semantically.
+
+Restricted Productions:
+
+‘++’, ‘--’, ‘break’, ‘return’, ‘continue’
+
+Break and continue statements have a optional identifier
+which MUST be used on the same line as the break or continue token.
+
+Postfix operators (++ and --) should appear 
+on the same line as its operand.
+
+An expression in a return or throw statement
+should START on the same line as the return or throw token.
+
+When a return statement is followed by a line break,
+it will ALWAYS imply an empty return (return;).
+
+
+WHERE OMITTING SEMICOLONS CREATES BUGS:
+
+The first rule of semicolon insertion requires that the program
+contain a token which is not allowed, before a semicolon will 
+be inserted. The rule considers on the first token of the 
+following line. If that token can parse as part of the 
+previous statement, then the statement is continued.  
+
+Tokens that can appear both at the start and after a statement:
+
+‘(‘, ‘[‘, ‘/‘, ‘+’, ‘-‘
+
+Because of these tokens a line break does not always replace a semicolon with ASI.
+
+When a statement begins with a left parenthesis, it is a good idea to provide 
+an explicit semicolon at the end of the preceding statement. 
+A more robust alternative is to include the semicolon at the beginning of the line:
+
+a = b + c
+;(d+e).print()
+
+The ‘+’ and ‘-‘ tokens are useful as unary operators to convert a value to the Number type
+or to reverse the sign. If used at the beginning of a statement they can be misinterpreted
+as binary operators (add/concatenate and subtract respectively). 
+
+It is a good idea, when the above tokens are used at the beginning of a line to 
+precede them with a semicolon:
+;(function assignment)
+;[array statement]
+;+Value
+;-Value
+;/regexp/
+
+Source: [http://inimino.org/~inimino/blog/javascript_semicolons]

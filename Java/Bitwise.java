@@ -1,8 +1,21 @@
-public class Bitwise {
+class Bitwise {
 	public static void main(String[] args) {
-		byte b1 = 6 & 8; // 0110 AND 1000 = 0000
-		byte b2 = 7 | 9; // 0111 OR 1001  = 1111
-		byte b3 = 5 ^ 4; // 101 XOR 100 = 001
-		System.out.println(b1 + " " + b2 + " " + b3);
+		int a = 0b11001;
+		int b = 0b01100;
+		System.out.println("a   = " + Integer.toString(a,2));
+		System.out.println("b   =  " + Integer.toString(b,2));
+		System.out.println("a&b =  " + Integer.toString(a&b,2));
+		System.out.println("a|b = " + Integer.toString(a|b,2));
+		System.out.println("a^b = " + Integer.toString(a^b,2));
+		int c = 0b11001100110011001100110011001100;
+		System.out.println("c  = " + Integer.toBinaryString(c));
+		System.out.println("~c =   " + Integer.toBinaryString(~c)); 
+		int d = 0b11110000;
+		System.out.println("d    =     " + Integer.toBinaryString(d));
+		System.out.println("d<<4 = " + Integer.toBinaryString(d<<4));
+		System.out.println("d>>4 =         " + Integer.toBinaryString(d>>4));
+		System.out.println("c      = " + Integer.toBinaryString(c));
+		System.out.println("c>>16  = " + Integer.toBinaryString(c>>16));
+		System.out.println("c>>>16 =                 " + Integer.toBinaryString(c>>>16));	
 	}
 }

@@ -1,0 +1,12 @@
+class Dims {
+	public static void main(String[] args){
+		int[][] a = {{1,2},{3,4}};
+		int[] b = (int[]) a[1];
+		Object o1 = a;
+		int[][] a2 = (int[][]) o1;
+		if (o1 instanceof int[]) {
+			int[] b2 = (int[]) o1;
+		}
+		System.out.println(b[1]);
+	}
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang='en-US'>
+
+<head>
+	<title>
+		Viewport-centered block
+	</title>
+
+	<style>
+		body {
+			background: white;
+			//position: static;
+			//position: relative;
+			//position: fixed;
+			//position: absolute;
+			//height: 100%;
+			//width: 100%;
+		}
+		section {
+			background: black;
+			color: white;
+			border-radius: 1em;
+			padding: 1em;
+			Position: absolute;
+			
+			
+			top: 50%;
+			left: 50%;
+			//margin-right: -50%;
+			transform: translate(-50%, -50%) 
+		}
+	</style>	
+
+</head>
+
+<body>
+	<section>
+		<h1>Nicely centred</h1>
+
+		<p>This text block is vertically centred.
+
+		<p>Horizontally, too, if the window is wide enough.
+
+		<a href='https://jsfiddle.net/4f32p0tm/'><p>Centering Fiddle</p></a>
+	</section>
+</body>
+</html>

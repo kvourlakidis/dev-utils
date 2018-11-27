@@ -1,0 +1,245 @@
+CSS References
+
+
+CSS Selectors:
+
+.class			.intro		selects all elems with class=‘intro’
+#id				#firstname		select the elems with id=‘firstname’
+*				*			select ALL elems
+element			p			select all <p> elems
+element,  element		div,  p		select all <div> elems AND all <p> elements
+element   element		div   p		select all <p> elms INSIDE <div> elements
+element > element		div > p		selects all <p> elems where PARENT is a <div> 
+element + element		div + p		select all <p> elems placed immediately AFTER <div> elems
+element ~ element		p ~ ul		select all <ul> PRECEDED by a <p> elem
+[attribute]			[target]		select all elements with a target attribute
+[attribute=value]		[target=_blank]	select all elems with target=‘_blank’
+:active			a:active		selects the active link
+:focus			input:focus		select the element which has focus
+:hover			a:hover		selects links on mouse-over
+::after			p::after		insert something after the content of each <p> elem
+::before			p::before		insert something before the content of each <p> elem
+:checked			input:checked	selects every checked <input> element
+:disabled			input:disabled	selects every disabled <input> element
+:enabled			input:enabled	selects every enabled <input> element
+:invalid			input:invalid	select all <input> elements with an invalid value
+:empty			p:empty		selects every <p> that has NO CHILDREN
+:first-child		p:first-child	select every <p> that is the FIRST CHILD of its parent
+:last-child			p:last-child	select every <p> that is the LAST CHILD of its parent
+:nth-child			p:nth-child(2)	select every <p> that is the second CHILD of its parent
+:not(selector)		:not(p)		select all elements that is not a <p> element 
+:target			#news:target	select the current clicked on #news element
+
+Position: static / relative / fixed / absolute;
+
+Static: default position according to the flow of the page. Static elements are not affected by: top, bottom, left or right properties. 
+
+Relative: position relative to normal flow of the page. Setting the top/down/left/right properties causes the respective adjustment from normal position. Does not affect the flow of other elements. 
+
+Fixed: position relative to the viewport (even if page is scrolled). Top/right/bottom/left properties are used to position the element. Other elements ‘ignore’ the fixed positioned element. 
+
+Absolute: positioned relative to the nearest non-static positioned ancestor. Moves along with page scrolling (unless ancestor is fixed). 
+
+
+Overlapping elements (z-index):
+ 
+The z-index property specifies the stack order of overlapping elements. The stack order can be positive or negative (an element with a higher stack order appears in front of an element with a lower stack order). 
+
+
+Display: none / block / inline / 
+
+The display property specifies if/how an element is displayed. 
+The default display value for most elements is block or inline.
+
+Block: a block-level element always starts on a new line and takes up the full width available. Examples of block-level elements: <div> <h1-6> <p> <form> <header> <footer> <section>. 
+
+Inline: an inline element does not start on a new line and only takes up as much width as necessary. Examples of inline elements: <span> <a> <img>. 
+
+None: used to hide and show elements. The <script> element use display: none; as its default (otherwise you would see the JS code as text on the page)! An element with display:none; is removed from the viewport completely. 
+Visibility: hidden; - also hides an element. However in this case the element will be hidden, but still take up the same space as before. 
+
+
+CSS Colors:
+
+Colors are displayed combining the RED, GREEN and BLUE light. 
+Colors can be specified by: NAME, RGB value, HEX value, HSL value, HWB value.
+RGB color: rgb(red,green,blue) - each parameter is an integer between 0 and 255.
+RGBA color: rgba(red,green,blue,opacity) - where opacity is between 0 and 1.
+HEX color: #RRGGBB - using hex integers between 00 and FF for each color.
+HSL color: hsl(hue,saturation,lightness) - hue 0:360, saturation 0:100%, lightness 0:100%.
+
+
+CSS Units:
+
+Length is specified with a number followed by a unit (e.g. 10px, 2em). 
+A whitespace cannot appear between the number and the unit. 
+The unit can be omitted if the value is zero.
+Two types of units are RELATIVE and ABSOLUTE.
+
+Relative Lengths:
+
+em		relative to the font-size of the element (1em is unity)
+ch		relative to the width of the ‘zero’ character
+rem		relative to the font-size of the root element
+vw		relative to 1% of the width of the viewport
+vh		relative to 1% of the height of the viewport
+vmin		relative to 1% of the viewport’s smaller dimension
+vmax		relative to 1% of the viewport’s larger dimension
+
+The em and rem units are practical in creating scalable layout. 
+
+Absolute Lengths:
+
+cm		centimeters (1cm = 37.8px)
+mm		millimeters (1mm = 3.78px)
+in		inches (1in = 96px = 2.54cm)
+px		pixels (1px = 1/96th of 1in)
+pt		points (1pt = 1/72 of 1in or 1.33px)
+pc		picas (1pc = 12pt or 1/9 of 1px, 9pc = 1px)
+
+Pixels are relative to the viewing device.
+High res screens 1px implies multiple device pixels. 
+
+CSS Properties:
+
+height		set the height of an element
+width			set the width of an element
+max-height/width	set the maximum height / width of an element
+min-height/width	set the minimum height / width of an element
+
+margin		set the margin properties
+margin-bottom/left/right/top
+
+padding		set the padding properties in one declaration
+padding-bottom/left/right/top
+
+position		set the type of position for an element
+bottom		sets the bottom margin edge for a positioned box
+left			sets the   left margin edge for a positioned box
+right			sets the  right margin edge for a positioned box
+top			sets the    top margin edge for a positioned box
+clip			clips an absolutely positioned element (e.g. image > container)
+overflow		sets what happens if content overflows (e.g. content > container)
+overflow-x		-//- if left/right edges overflow
+overflow-y		-//- if top/bottom edges overflow
+cursor		specifies the type of cursor to be displayed
+z-index		set the stack order of (overlapping) elements
+
+vertical-align	set the vertical alignment
+
+flex			specifies the length of the item, relative to the rest
+flex-flow		short-hand for flex-direction and flex-wrap
+flex-grow		specifies how much the item will grow relative to the rest
+flex-shrink		specify how much the item will shrink relative to the rest
+flex-basis		specify the initial length of a flexible item
+flex-wrap		specify if flexible items should wrap or not
+align-content	alignment between the lines inside a flexible container
+align-items		alignment of items inside a flexible container
+align-self		alignment for selected items inside a flexible container
+justify-content	alignment when items don’t use all available space
+order			sets the order of the flexible item, relative to the rest
+
+float			specify if a box should float
+clear			specify which sides of an element where floating elements are not allowed
+
+display		specifies how an element should be displayed
+visibility		specifies if an element should be visible
+
+background		shorthand for setting all background properties
+background-color	specifies the background color 
+background-image
+
+border		set the border properties in one declaration
+border-style	set the style of the four borders
+border-bottom	set the properties of the bottom border
+border-left		set the properties of the left border
+border-right	set the properties of the right border
+border-top		set the properties of the top border
+border-radius	set the four border-radius properties
+border-color	set the color of the four borders
+border-image	set the four border-image properties
+box-shadow		attaches one or more drop-shadows to the box
+
+color			sets the colour of text
+opacity		set the opacity level of an element (0::1)
+
+text-align		control the horizontal alignment of text
+text-justify	specify justification when text-align: justify;
+hyphens		set how to split words to control layout
+letter-spacing	space between characters
+word-spacing	space between words
+line-height		set the line height
+overflow-wrap	how to manage text overflow (when string > container)
+text-overflow	manage overflowed text
+tab-size		length of the tab character
+text-indent		specify the indentation of the first line in a text-block
+text-transform	controls the capitalisation of text
+word-wrap		allows long words to be broken and wrap to the next line
+text-decoration	specify decoration added to text
+text-decoration-color/line/style
+text-shadow		adds shadow to text
+
+font			set all font properties in one declaration
+font-family		specify the font family
+font-size		specify the size of text
+font-weight		control the weight of a font
+
+direction		specify the text direction
+text-orientation	define orientation of text in a line
+
+list-style		declare properties for a list
+list-style-image/position/type
+counter-reset	reset one or more counters in a list
+
+@keyframes		specify the animation code
+animation		declare all animation properties
+animation-delay/direction/duration
+animation-fill-mode			specify style when animation is not running
+animation-iteration-count		number of times an animation should be played
+animation-name				specify the name of the @keyframes animation
+animation-play-state			control whether an animation is running or paused
+animation-timing-function		specify the speed curve of the animation
+
+transform		apply a 2D or 3D transformation to an element
+transform-origin	change position of transformed elements
+transform-style	specify how nested elements are rendered in 3D space
+
+transition		shorthand for the four transition properties
+transition-property/duration/timing-function/delay
+
+box-sizing			specify what sizing properties should include
+content			used with ::before and ::after elements to insert content
+nav-index			specify the tabbing order of an element
+nav-down/left/right/up	specify navigation when using arrow keys
+outline			set the outline properties
+outline-color/offset/style/width
+resize			specify whether an element can be resized by the user
+
+columns		short-hand for setting column-width and column-count
+column-width	specify the width of columns
+column-count	specify the number of columns an element should be divided into
+column-span		how many columns an element should span
+column-fill		how to fill columns
+column-gap		the size of gaps between columns
+column-rule		set the column-rule properties
+column-rule-color/style/width
+break-after/before/inside	specify the break behaviour 
+
+widows		set the number of lines at the top of a page after a page break
+orphans		set the lines at the bottom of the page after a page break
+
+image-orientation		rotation in the CW direction (in future: functionality moved to HTML)
+image-rendering		how to preserve scaled image
+image-resolution		specify intrinsic resolution of raster imagery
+object-fit			
+object-position
+
+marquee-direction		set direction of moving content
+marquee-play-count	how many times the content moves
+marquee-speed		set how fast the content scrolls
+marquee-style		set the style of the moving content
+
+					END
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////

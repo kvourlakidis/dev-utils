@@ -1,0 +1,49 @@
+Declaration:
+
+function functionName(parameters) {
+	code to be executed
+}
+
+Declared functions are not executed immediately.
+They are ‘saved’ for later use, and will be 
+executed later (when they are called). 
+
+
+Function Expressions:
+
+var x = function(a,b) {return a * b};
+
+var z = x(4,3);
+
+
+The Function() Constructor:
+
+var myFunction = new Function(“a”, “b”, “return a*b”);
+
+Is the same as:
+
+var myFunction = function (a, b) {return a*b};
+
+
+Hoisting:
+
+Javascript moves declarations to the top of the current scope.
+This means a function can be called before it is declared:
+
+myFunction(5);
+
+function myFunction(y) { return y * y };
+
+Functions defined using an expression are not hoisted. 
+
+
+Self-Invoking functions:
+
+A self-invoking expression is started automaticaly, without being called.
+
+Function expressions will execute automatically if followed by ():
+
+(function() {var x = “Hello!”})();
+
+The function above is an anonymous self-invoking function. 
+

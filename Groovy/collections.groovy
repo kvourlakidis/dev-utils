@@ -1,18 +1,24 @@
-def myList = [3, 1, 4, 1, 5, 9]
-println myList
-println myList.class.getName()
+def nums = [3, 1, 4, 1, 5, 9] as Set
 
-def myLinkedList = [3, 1, 4, 1, 5, 9] as LinkedList
-println myLinkedList
-println myLinkedList.class.getName()
-println myLinkedList == myList
+// println nums.class.name 
 
-def mySet = [3, 1, 4, 1, 5, 9] as Set 
-println mySet
-println mySet.class.getName()
+// for (int i=0;i < nums.size(); i++) { println nums[i]} // java loop
+// for (x in nums) println x // java loop
 
-def mySortedSet = [3, 1, 4, 1, 5, 9] as SortedSet
-println mySortedSet
-println mySortedSet.class.getName()
+nums.each { print "$it " } println()
+// nums.each { n -> print "$n " } println()
+// nums.eachWithIndex { n, idx -> print "$idx:$n; " }
+// println()
 
-for (int i=0; i < myList.size(); i++) print "${myList[i]} "; 
+def doubles = nums.collect { it * 2 }
+
+// nums.each { doubles << it * 2 } // not good
+
+// doubles.each { print "$it "} println()
+
+// def cities = ['Boston', 'New York', 'Hyderabad', 'Cairo'] 
+
+// println cities.collect { it.toLowerCase().reverse() }
+
+// println nums.collect { it * 2 }.findAll { it % 3 }
+
