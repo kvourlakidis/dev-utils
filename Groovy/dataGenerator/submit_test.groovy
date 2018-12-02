@@ -13,9 +13,11 @@ println "end"
 
 def submitPeople(Integer nRequests, Integer nPerRequest) {
     for (int i=0; i<nRequests; i++) {
+        def messageBody = HttpHelpers.getMessageBody(getSubmitBodyMap(nPerRequest))
+        // println messageBody
         def submitRequest = HttpHelpers.createPostRequest(
             Constants.BASE_URL_OPAL + Constants.SUBMIT,
-            HttpHelpers.getMessageBody(getSubmitBodyMap(nPerRequest)),
+            messageBody,
             Constants.CONTENT_TYPE_SUBMIT)
         HttpHelpers.handleResponse(submitRequest)
     }
@@ -31,10 +33,11 @@ def getSubmitBodyMap(int numEntities = 1) {
             ]
         ],
         properties: [
-            PER3:  [columns: [[column: 2]]]
-            ,PER4:  [columns: [[column: 3]]]
-            ,PER6:  [columns: [[column: 4]]]
-            ,PER34: [columns: [[column: 5]]]
+            // PER3:  [columns: [[column: 2]]]
+            PT24:  [columns: [[column: 3]]]
+            ,PT33:  [columns: [[column: 4]]]
+            ,PT1069: [columns: [[column: 5]]]
+            ,PT13: [ columns: [[constantValue: "Mr Doge Shiba Inu" ]]]
             // ,PER8:  [columns: [[column: 6]]]
             // ,PER99: [columns: [[column: 7]]]
         ],
