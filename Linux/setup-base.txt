@@ -38,10 +38,16 @@ sudo apt install npm
 # install geany editor
 sudo apt install geany
 
-# install java
+# install java (using Sdkman - https://sdkman.io/install)
 sudo apt install openjdk-8-jdk
-sudo apt install groovy
-sudo apt install libcanberra-gtk-module
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install groovy
+sdk install gradle
+sdk install maven
+
+# sudo apt install groovy
+# sudo apt install libcanberra-gtk-module
 
 # set java_home variable
 echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ~/.bashrc

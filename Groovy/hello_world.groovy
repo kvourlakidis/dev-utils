@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 // Groovy automatic imports:
 import java.lang.*
 import java.util.*
