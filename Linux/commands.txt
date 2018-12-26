@@ -100,3 +100,10 @@ pkill [pattern]
 sudo insmod 88x2bu.ko
 lsmod
 
+# Snaps
+snap list
+snap search plexmediaserver
+snap install plexmediaserver --beta
+snap services
+snap stop plexmediaserver
+snap restart plexmediaserver

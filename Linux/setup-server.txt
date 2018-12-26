@@ -1,0 +1,25 @@
+# update
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+
+# install utils
+sudo apt install vim
+sudo apt install lm-sensors
+sudo apt install zfsutils-linux
+sudo apt install exfat-fuse exfat-utils
+sudo apt install samba
+sudo apt install iftop
+sudo apt install tree
+sudo apt install ubuntu-restricted-extras
+
+# utils for reading optical disks
+sudo apt install genisoimage
+sudo apt install dvdbackup
+sudo apt install libdvdread4
+sudo apt install libdvd-pkg
+sudo dpkg-reconfigure libdvd-pkg
+
+# install snaps
+sudo snap install plexmediaserver --beta
+
