@@ -30,5 +30,5 @@ COLR="\[\033[01;31m\]"
 COLG="\[\033[01;32m\]"
 COLB="\[\033[01;34m\]"
 CEND="\[\033[00m\]"
-export PS1="$COLB\!$CEND|$COLR\$?$CEND|$COLG\u$CEND:$COLB\W$CEND\$ "
+PS1="$COLB\!$CEND|$COLR\$?$CEND|$COLG\u$CEND:$COLB\W$CEND\$ "
 

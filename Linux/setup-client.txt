@@ -30,6 +30,7 @@ sudo apt install libffi-dev
 sudo apt install libgdbm5
 sudo apt install libgdbm-dev
 sudo apt install libsqlite3-dev
+sudo apt install gnome-tweak-tool
 
 # install Node.JS
 sudo apt install nodejs
