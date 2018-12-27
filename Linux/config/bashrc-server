@@ -56,5 +56,5 @@ COLY="\[\033[01;33m\]"
 COLB="\[\033[01;34m\]"
 CEND="\[\033[00m\]"
 #
-PS1="\n$COLB\A$CEND|$COLB\D{%d-%m-%y}$CEND|$COLY\u@\h$CEND|$COLG\j$CEND\n$COLG\w$CEND\n$COLB#\!$CEND|$COLR\$?$CEND|$ "
+PS1="\n$COLY\j$CEND|$COLB\A$CEND|$COLB\D{%d-%m-%y}$CEND|$COLY\u@\h$CEND|$COLR\$?$CEND\n$COLG\w$CEND\n\$ "
 

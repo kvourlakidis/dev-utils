@@ -37,7 +37,7 @@ fltr="(cat\
 |vim\
 |whoami\
 )" 
-echo "Filter expression: $fltr"
+# echo "Filter expression: $fltr"
 if [ -n "$HISTFILE" ]; then
 	sort $HISTFILE | uniq | grep -vwE $fltr > "$HISTFILE-new"
 	mv "$HISTFILE-new" "$HISTFILE"
@@ -51,3 +51,4 @@ else
 	echo '$HISTFILE variable not assigned.'
 	echo 'Try calling this script using source.'
 fi
+
