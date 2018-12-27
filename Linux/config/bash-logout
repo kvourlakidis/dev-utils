@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# Author: Kyrilos Vourlakidis
+#
+# Email: kvourlakidis@gmail.com
+#
+# To run this script when login shell exits
+# add the following line to ~/.bash_logout:
+# source [PATH_TO_THIS_FILE]
+#
+echo "Cleaning up history file..."
+fltr="(cat\
+|cd\
+|clear\
+|df\
+|dirname\
+|du\
+|echo\
+|file\
+|head\
+|help\
+|kill\
+|less\
+|ls\
+|man\
+|mkdir\
+|mv\
+|ps\
+|pwd\
+|rm\
+|rmdir\
+|shutdown\
+|test\
+|touch\
+|type\
+|users\
+|vim\
+|whoami\
+)" 
+echo "Filter expression: $fltr"
+if [ -n "$HISTFILE" ]; then
+	sort $HISTFILE | uniq | grep -vwE $fltr > "$HISTFILE-new"
+	mv "$HISTFILE-new" "$HISTFILE"
+	histlines=$(wc -l < $HISTFILE)
+	if [ -n "$HISTFILESIZE" ]; then
+		pc=$(( histlines * 100 / $HISTFILESIZE ))
+		if (( pc > 90 )); then echo '!!! WARNING !!!';fi
+		echo "History size: $pc%"
+	fi
+else
+	echo '$HISTFILE variable not assigned.'
+	echo 'Try calling this script using source.'
+fi
