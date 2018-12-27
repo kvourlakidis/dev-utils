@@ -37,18 +37,24 @@ HISTIGNORE="&\
 "
 #
 # Set the PROMPT
-# 
-# Default prompt:
+#
+# Date: \d \D{format}
+# Hostname: \h (part) \H (full)
+# Jobs: \j
+# Newline: \n (lf) \r (cr)
+# Time: \t \T \@ \A
+# User: \u
+# CWD: \w (full) \W (basename)
+# Command number: \! \#
+#
+# Default prompt (without color information):
 # \u@\h:\w$
-# Default prompt with color (split up for readability):
-# \[\033[01;32m\]\u@\h
-# \[\033[00m\]:
-# \[\033[01;34m\]\w
-# \[\033[00m\]\$
 # 
 COLR="\[\033[01;31m\]"
 COLG="\[\033[01;32m\]"
+COLY="\[\033[01;33m\]"
 COLB="\[\033[01;34m\]"
 CEND="\[\033[00m\]"
-export PS1="$COLB\!$CEND|$COLR\$?$CEND|$COLG\u$CEND:$COLB\W$CEND\$ "
+#
+PS1="\n$COLB\A$CEND|$COLB\D{%d-%m-%y}$CEND|$COLY\u@\h$CEND|$COLG\j$CEND\n$COLG\w$CEND\n$COLB#\!$CEND|$COLR\$?$CEND|$ "
 
