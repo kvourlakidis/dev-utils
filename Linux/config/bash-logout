@@ -9,27 +9,34 @@
 # source [PATH_TO_THIS_FILE]
 #
 echo "Cleaning up history file..."
-fltr="(cat\
+fltr="(apropos\
+|cat\
 |cd\
 |clear\
 |df\
 |dirname\
 |du\
 |echo\
+|export\
 |file\
 |head\
 |help\
+|hostname\
 |kill\
 |less\
 |ls\
 |man\
 |mkdir\
+|more\
 |mv\
 |ps\
 |pwd\
 |rm\
 |rmdir\
 |shutdown\
+|sleep\
+|source\
+|tail\
 |test\
 |touch\
 |type\
