@@ -20,6 +20,8 @@ sudo apt install libdvdread4
 sudo apt install libdvd-pkg
 sudo dpkg-reconfigure libdvd-pkg
 sudo apt install handbrake-cli
+sudo apt install regionset
+sudo apt install libcdio-utils
 
 # install snaps
 sudo snap install plexmediaserver --beta
