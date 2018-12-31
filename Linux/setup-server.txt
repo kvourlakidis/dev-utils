@@ -2,16 +2,21 @@
 sudo apt update
 sudo apt upgrade
 sudo apt autoremove
+# for 18.10 only
+# sudo apt purge crypsetup*
 
 # install utils
-sudo apt install vim
+# sudo apt install vim
 sudo apt install lm-sensors
+# sudo sensors-detect
+# service kmod start
 sudo apt install zfsutils-linux
+# sudo zpool import
 sudo apt install exfat-fuse exfat-utils
 sudo apt install samba
 sudo apt install iftop
 sudo apt install tree
-sudo apt install ubuntu-restricted-extras
+sudo apt install pv
 
 # utils for reading optical disks
 sudo apt install genisoimage
@@ -22,7 +27,40 @@ sudo dpkg-reconfigure libdvd-pkg
 sudo apt install handbrake-cli
 sudo apt install regionset
 sudo apt install libcdio-utils
+sudo apt install ubuntu-restricted-extras
 
 # install snaps
 sudo snap install plexmediaserver --beta
 
+# Secure the memory
+#
+echo '# Secure shared memory' >> /etc/fstab
+echo "tmpfs /run/shm tmpfs rw,noexec,nosuid,nodev 0 0" >> /etc/fstab
+# Check syntax by running:
+sudo mount -a
+# Reboot to take effect
+# Note: /run/shm -> /dev/shm
+# Default: 'tmpfs /dev/shm tmpfs rw,nosuid,nodev 0 0'
+# Most secure: 'tmpfs /dev/shm tmpfs defaults,ro 0 0'
+# grep 'tmpfs' /proc/mounts
+
+# Configure ssh access
+echo '# White-list users' >> /etc/ssh/sshd_config
+echo "AllowUsers kirillv" >> /etc/ssh/sshd_config
+
+# Comment out lines in /etc/ssh/sshd_config:
+# Banner /etc/issue.net
+# Port 22
+sudo service ssh restart
+
+# Add a login banner
+echo "this is a login banner" >> /etc/issue.net
+
+# Optional: Disable MOTD
+# Comment out lines in /etc/pam.d/sshd:
+# session optional pam_motd.so motd=/run/motd.dynamic
+# session optional pam_motd.so noupdate
+
+# Harden the networking layer
+# Harden the /etc/sysctl.conf
+# TODO
