@@ -79,9 +79,10 @@ cat uptime.log
 # SSH
 ssh-keygen -t rsa -b 4096
 
-# Mount
+# Drives
 sudo mount -t nfs 192.168.1.241:/mnt/TestVolume/MediaDataset /mnt/MediaDataset
 sudo umount /mnt/MediaDataset
+fdisk -l
 
 # Swap
 sudo swapon --show
@@ -111,7 +112,6 @@ snap restart plexmediaserver
 # Disc copy
 isoinfo -i /dev/sr0 -d | grep -i -E 'block size|volume size'
 dd if=/dev/sr0 of=test.iso bs=2048 count=3592656
-HandBrakeCLI /dev/sr0 -o test.mp4 -e x264 -q 29 -B 160
 
 # Copying files
 pv my_big_files > backup/my_big_file
@@ -119,3 +119,82 @@ rsync -ah --progress source-file destination-file
 gcp source-file destination-file
 curl -o destination FILE://source
 dd if=src of=dst status=progress
+
+# Video file ripping with HandBrake
+HandBrakeCLI --help
+# Presets:
+# -Z "Preset Name" : select preset by name
+# --preset-import-file <filespec>
+#
+# CRF (or RF) - constant rate factor
+# A lower RF number produces higher quality video.
+# RF 18-22 for 480p/576p Standard Definition
+# RF 19-23 for 720p High Definition
+# RF 20-24 for 1080p Full HD
+# RF 22-28 for 2160p 4K Ultra HD
+#
+HandBrakeCLI -i sourcefile -o outputfile.mp4
+HandBrakeCLI -i /dev/sr0 -o test.mp4 -e x264 -q 20 -B 160
+# -q CRF 20
+# -B 160 Kbps AAC
+HandBrakeCLI -i source -o output -m -E copy -audio-copy-mask ac3,dts,dtshd -audio-fallback ffac3 -e x264 -q 20 -x level=4.1:ref=4:b-adapt=2:direct=auto:me=umh:subq=8:rc-lookahead=50:psy-rd=1.0,0.15:deblock=-1,-1:vbv-bufsize=30000:vbv-maxrate=40000:slices=4
+
+# File permissions
+#
+# Syntax:
+# 0123456789
+# drwxrwxrwx
+# |
+# 0 - directory bit (-|b|c|d|l)
+# drwxrwxrwx
+#  |||
+#  123 - user (rwx|---)
+# drwxrwxrwx
+#     |||
+#     456 - group (rwx|---)
+# drwxrwxrwx
+#        |||
+#        789 - others (rwx|---)
+# Directories:
+# rwx (7) - access/read + list + add/remove files
+# r-x (5) - access/read + list files
+# r-- (4) - list files only (limited use)
+# --x (1) - access/read files
+# --- (0) - no access
+#
+# Note: if the 'x' bit is not set on any folder in the
+# path, the final file or folder cannot be accessed.
+# If the 'x' bit is removed from root (/) this will
+# break the Linux system. This can be avoided by using
+# chmod with the --preserve-root flag.
+#
+# Files:
+# rwx (7) - read, modify and run
+# rw- (6) - read and modify
+# r-x (5) - read and run
+# r-- (4) - read-only
+# --- (0) - no access 
+#
+# Default directory permissions: 755
+# Default file permissions: 644
+#
+chown username filename
+chown -R username:groupname filename
+chgrp groupname filename
+# Below 3 commands are equivalent
+chmod ugo+rwx myfile
+chmod a+rwx myfile
+chmod 777 myfile
+# To set the executable bit for directories only:
+chmod -R a+rX mydirectory
+find mydirectory -type d -exec chmod 755 {} +
+# To set permissions on files only:
+find mydirectory -type f -exec chmod 644 {} +
+# To view permissions in numeric form:
+stat -c %a filename
+stat -c "%a %A" filename
+
+# setuid / setgid
+# TODO
+find mydirectory -type d -exec chmod g+s
+
