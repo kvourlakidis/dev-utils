@@ -113,3 +113,9 @@ isoinfo -i /dev/sr0 -d | grep -i -E 'block size|volume size'
 dd if=/dev/sr0 of=test.iso bs=2048 count=3592656
 HandBrakeCLI /dev/sr0 -o test.mp4 -e x264 -q 29 -B 160
 
+# Copying files
+pv my_big_files > backup/my_big_file
+rsync -ah --progress source-file destination-file
+gcp source-file destination-file
+curl -o destination FILE://source
+dd if=src of=dst status=progress

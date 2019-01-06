@@ -17,6 +17,7 @@ sudo apt install samba
 sudo apt install iftop
 sudo apt install tree
 sudo apt install pv
+sudo apt install gcp
 
 # utils for reading optical disks
 sudo apt install genisoimage

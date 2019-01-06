@@ -59,7 +59,6 @@ CEND="\[\033[00m\]"
 PS1="\n$COLY\j$CEND|$COLB\A$CEND|$COLB\D{%d-%m-%y}$CEND|$COLY\u@\h$CEND|$COLR\$?$CEND\n$COLG\w$CEND\n\$ "
 #
 # Aliases
-alias hb="HandBrakeCLI"
 alias cdp="cd $HOME/Projects"
 alias cdd="cd $HOME/Projects/dev-utils"
 
