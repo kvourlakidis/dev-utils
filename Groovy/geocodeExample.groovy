@@ -4,7 +4,7 @@ def encoded = ['2 Avenue de Lafayette', 'Boston', 'MA']
     .join(',')
 String qs = "address=$encoded"
 println "$baseUrl$qs"
-String key = 'AIzaSyDHvD5NslD978dyN263Ijlefl4RdLWE9mY'
+String key = 'api key removed'
 
 def root = new XmlSlurper().parse("$baseUrl$qs&key=$key")
 

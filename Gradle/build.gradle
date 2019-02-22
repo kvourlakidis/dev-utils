@@ -1,0 +1,14 @@
+ext.person = 'my external person'
+
+task one {
+    doLast {
+        println "hello $person"
+        println "hello $ext.person"
+    }
+}
+
+task two {
+    doLast {
+        
+    }
+}
