@@ -40,6 +40,7 @@ echo "tmpfs /run/shm tmpfs rw,noexec,nosuid,nodev 0 0" >> /etc/fstab
 # Check syntax by running:
 sudo mount -a
 # Reboot to take effect
+# Remount: sudo mount -o remount /dev/shm
 # Note: /run/shm -> /dev/shm
 # Default: 'tmpfs /dev/shm tmpfs rw,nosuid,nodev 0 0'
 # Most secure: 'tmpfs /dev/shm tmpfs defaults,ro 0 0'

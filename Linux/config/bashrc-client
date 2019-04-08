@@ -32,3 +32,6 @@ COLB="\[\033[01;34m\]"
 CEND="\[\033[00m\]"
 PS1="$COLB\!$CEND|$COLR\$?$CEND|$COLG\u$CEND:$COLB\W$CEND\$ "
 
+# Aliases
+alias rm="rm -iv"
+
