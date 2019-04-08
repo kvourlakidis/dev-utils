@@ -2,13 +2,21 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Ackermann",
+            "name": "CodeLens (Launch) - Input",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
-            "stopOnEntry": false,
-            "mainClass": "Ackermann",
-            "args": ""
+            "mainClass": "Input"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - IOStreams",
+            "request": "launch",
+            "mainClass": "IOStreams"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - CopyLines",
+            "request": "launch",
+            "mainClass": "CopyLines"
         }
     ]
 }

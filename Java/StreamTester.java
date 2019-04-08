@@ -40,7 +40,10 @@ public class StreamTester {
       System.out.println("Sum of all numbers : " + getSum(integers));
       System.out.println("Average of all numbers : " + getAverage(integers));
       System.out.println("Random Numbers: ");
-		
+      
+      //perform a operation on each number in a list
+      List<Integer> ia = Arrays.asList(1,2,3,4,5,6,7,8,9,10);	
+		ia.stream().map(x -> timesTwo(x)).forEach(x -> System.out.println(x));
       //print ten random numbers
       Random random = new Random();
 		
@@ -144,6 +147,10 @@ public class StreamTester {
       }
       return squaresList;
    }
+
+   static int timesTwo(int a){
+		return a*2;
+	}
 	
    private static int getMax(List<Integer> numbers){
       int max = numbers.get(0);
