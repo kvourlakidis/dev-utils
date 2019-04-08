@@ -86,6 +86,10 @@ sudo mount -t nfs 192.168.1.241:/mnt/TestVolume/MediaDataset /mnt/MediaDataset
 sudo umount /mnt/MediaDataset
 fdisk -l
 
+# File systems
+mount -l
+findmnt --verify --verbose
+
 # Swap
 sudo swapon --show
 free -h
