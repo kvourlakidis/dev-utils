@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<topology>
+<?xml version="1.0" encoding="UTF-8"?><topology>
   <i2-data-sources>
     <i2-data-source ar="false" default="false" id="infostore">
       <DataSource Version="0" Id="">
@@ -14,14 +13,14 @@
   <applications>
     <application http-server-host="false" name="opal-server" host-name="localhost">
       <wars>
-        <war context-root="opal" name="opal-services-is-wrong" i2-data-source-id="infostore" target="opal-services-is-wrong">
+        <war context-root="opal" name="opal-services-is-wrong" i2-data-source-id="infostore" target="opal-services-is">
           <data-sources>
             <data-source database-id="infostore" create-database="true"/>
           </data-sources>
           <file-store-ids>
-            <file-store-id value="chart-store"/>
             <file-store-id value="job-store"/>
             <file-store-id value="recordgroup-store"/>
+            <file-store-id value="chart-store"/>
           </file-store-ids>
           <fragments>
             <fragment name="opal-services-is"/>
@@ -34,15 +33,29 @@
             <solr-collection-id collection-id="main_index" data-dir="/Users/kyrilosvourlakidis/i2Analyze/data/solr" cluster-id="is_cluster"/>
           </solr-collection-ids>
         </war>
-        <war context-root="opal" name="opal-services-is" i2-data-source-id="infostore" target="opal-services-daod">
+        <war context-root="opal" name="opal-services-is" i2-data-source-id="infostore" target="opal-services-is-daod">
+          <file-store-ids>
+            <file-store-id value="chart-store"/>
+          </file-store-ids>
+        </war>
+      </wars>
+      <file-stores>
+        <file-store location="/Users/kyrilosvourlakidis/i2Analyze/data/job/main" id="job-store" type="job-store"/>
+        <file-store location="/Users/kyrilosvourlakidis/i2Analyze/data/recordgroup/main" id="recordgroup-store" type="recordgroup-store"/>
+        <file-store location="/Users/kyrilosvourlakidis/i2Analyze/data/chart/main" id="chart-store" type="chart-store"/>
+      </file-stores>
+    </application>
+    <application name="opal-server">
+      <wars>
+        <war target="opal-services-is">
+          <file-store-ids>
+            <file-store-id value="chart-store"/>
+          </file-store-ids>
         </war>
       </wars>
       <file-stores>
         <file-store location="/Users/kyrilosvourlakidis/i2Analyze/data/chart/main" id="chart-store" type="chart-store"/>
-        <file-store location="/Users/kyrilosvourlakidis/i2Analyze/data/job/main" id="job-store" type="job-store"/>
-        <file-store location="/Users/kyrilosvourlakidis/i2Analyze/data/recordgroup/main" id="recordgroup-store" type="recordgroup-store"/>
       </file-stores>
-
     </application>
   </applications>
   <zookeepers>
