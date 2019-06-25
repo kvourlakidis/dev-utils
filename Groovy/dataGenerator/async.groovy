@@ -1,8 +1,8 @@
 import java.text.NumberFormat
 import java.util.concurrent.Executors
-import submit_people
+import submit_test
 
-final int numOfThreads = 3
+final int numOfThreads = 100
 def tasks = []
 numOfThreads.times { tasks.add(new ParallelisableTask("thread ${it + 1}")) }
 println "Starting ${numOfThreads} threads."
@@ -29,8 +29,8 @@ class ParallelisableTask implements Runnable {
             System.out.println(String.format("%s done sleeping", name));
             def startTime = System.currentTimeMillis()
             def numRequests = 10
-            def numPerRequest = 5000
-            new submit_people().submitPeople(numRequests, numPerRequest)
+            def numPerRequest = 1
+            new submit_test().submitPeople(numRequests, numPerRequest)
             println "${name} execution time: ${ NumberFormat.getNumberInstance(Locale.US).format(System.currentTimeMillis() - startTime) } ms"
         } catch (InterruptedException ex) {
             println "${name} got interupted"

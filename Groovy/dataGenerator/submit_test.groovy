@@ -4,7 +4,7 @@ import static HttpHelpers.Constants as Constants
 // main
 //
 println "start"
-submitPeople(100, 10_000)
+submitPeople(10, 100_000)
 println "end"
 
 //
@@ -34,10 +34,14 @@ def getSubmitBodyMap(int numEntities = 1) {
         ],
         properties: [
             // PER3:  [columns: [[column: 2]]]
-            PT24:  [columns: [[column: 3]]]
-            ,PT33:  [columns: [[column: 4]]]
+            PT24:    [columns: [[column: 3]]]
+            ,PT33:   [columns: [[column: 4]]]
             ,PT1069: [columns: [[column: 5]]]
-            ,PT13: [ columns: [[constantValue: "Mr Doge Shiba Inu" ]]]
+            ,PT13:   [columns: [[constantValue: "Mr Doge Shiba Inu" ]]]
+            ,PT28:   [columns: [[column: 6]]]
+            ,PER15:  [columns: [[column: 7]]]
+            ,PT260:  [columns: [[constantValue: "canine" ]]]
+            ,PT440:  [columns: [[constantValue: "bought dogecoin" ]]]
             // ,PER8:  [columns: [[column: 6]]]
             // ,PER99: [columns: [[column: 7]]]
         ],
@@ -59,6 +63,8 @@ def getSubmitBodyMap(int numEntities = 1) {
             ,name[1]            // 3
             ,name[-1]           // 4
             ,mark               // 5
+            ,getRandomShibe()   // 6
+            ,getRandomShibe()   // 7
             // ,id1                // 6
             // ,id2                // 7
         ])
@@ -79,6 +85,7 @@ class Statics {
     static List words
     static Random random = new Random()
     static List titles = ['Mr.', 'Mrs.', 'Ms.', 'Miss', 'Master', 'Madam']
+    static List shibes = ['Doge', 'doge', 'shiba', 'shibe', 'shiba inu', 'doggo', 'doggy']
     static {
         names = loadFromFileIntoList(namesFile, ',')
         words = loadFromFileIntoList(wordsFile, '\n')
@@ -122,6 +129,10 @@ def getRandomTitle() {
 
 def getRandomWord() {
     return Statics.words[Statics.random.nextInt(Statics.words.size())]
+}
+
+def getRandomShibe() {
+    return Statics.shibes[Statics.random.nextInt(Statics.shibes.size())]
 }
 
 def getRandomSentence() {

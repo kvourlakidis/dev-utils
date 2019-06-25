@@ -29,7 +29,7 @@ public class HttpHelpers {
         static final String AUTH      = "j_security_check"
         // static final String BASE_URL_OPAL  = "http://localhost:9082/opal/"
         // static final String BASE_URL_OPALDAOD  = "http://localhost:9082/opaldaod/"
-        static final String BASE_URL_OPAL  = "http://9.20.147.61:9090/opal/"
+        static final String BASE_URL_OPAL  = "http://9.20.30.173:9182/opal/"
         //
         static final String ENCODING = "UTF-8"
         static final String LANGUAGE = "en-US"
@@ -130,6 +130,7 @@ public class HttpHelpers {
             }
         } catch (IOException ex) {
             println ex.getMessage();
+            println ex.printStackTrace();
             println "URL: ${request.getURL()}"
         }
         // set the Cookie
