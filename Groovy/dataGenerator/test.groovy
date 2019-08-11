@@ -23,18 +23,18 @@ class Statics {
     }
 }
 
-def getRandom(nList) {
+private def getRandom(nList) {
     def r = Statics.random
     def ind = r.nextInt(nList.size())
     return nList[ind]
 }
 
-def getRandomName() {
+private def getRandomName() {
     def name = getRandom(Statics.names)
     return name.toLowerCase().capitalize()
 }
 
-def getRandomFullName() {
+private def getRandomFullName() {
     def r = Statics.random
     def num = 2 + r.nextInt(3)
     def name = [getRandomTitle()]
@@ -42,15 +42,15 @@ def getRandomFullName() {
     return name
 }
 
-def getRandomTitle() {
+private def getRandomTitle() {
     return Statics.titles[Statics.random.nextInt(Statics.titles.size())]
 }
 
-def getRandomWord() {
+private def getRandomWord() {
     return Statics.words[Statics.random.nextInt(Statics.words.size())]
 }
 
-def getRandomSentence() {
+private def getRandomSentence() {
     int max = 20
     def sentence = [getRandomWord()]
     int len = Statics.random.nextInt(max)
@@ -58,3 +58,5 @@ def getRandomSentence() {
     sentence.add('.')    
     return sentence
 }
+
+println getRandomSentence()

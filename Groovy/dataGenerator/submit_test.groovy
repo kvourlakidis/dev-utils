@@ -4,7 +4,7 @@ import static HttpHelpers.Constants as Constants
 // main
 //
 println "start"
-submitPeople(10, 100_000)
+submitPeople(1, 1000)
 println "end"
 
 //
