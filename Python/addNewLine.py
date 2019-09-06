@@ -2,17 +2,13 @@
 
 import sys
 import os
-
+import copy 
 
 def main(argvs):
-
-
-
 	if argvs:
 		print 'Have args!'
 		for argv in argvs:
 			print argv
-
 
 	if not sys.stdin.isatty():
 		print 'Have stdin!'
@@ -22,29 +18,23 @@ def main(argvs):
 			print fPath
 			if not os.path.isfile(fPath):
 				print fPath + ' is not a file'
-				continue
+				continue # to next line in pipeline
 
 			with open(fPath,'r') as f:
 				oldFile = f.read()
 			
 			newFile = addDisplayName(oldFile)
 
-#			with open(fPath+'_new','w') as f:
 			with open(fPath,'w') as f:
 				f.write(newFile)
 
 	else:
 		print("nothing in stdin")
-
 	#
 	# /main()
 	#
 
-
 def addDisplayName(oldFile):
-	
-	import copy 
-
 	print 'SOF'
 	oldFlines = oldFile.split('\r\n')
 	newFlines = copy.deepcopy(oldFlines)
@@ -76,8 +66,6 @@ def addDisplayName(oldFile):
 	print 'EOF'
 	newFile = '\r\n'.join(newFlines)
 	return newFile
-
-
 
 def findAndReplace(fileLines,changesHash):
 	for old,new in changesHash.items():
