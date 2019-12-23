@@ -4,7 +4,7 @@ import static HttpHelpers.Constants as Constants
 // main
 //
 println "start"
-submitPeople(1, 1000)
+submitPeople(1, 10_000)
 println "end"
 
 //
@@ -23,13 +23,12 @@ def submitPeople(Integer nRequests, Integer nPerRequest) {
     }
 }
 def getSubmitBodyMap(int numEntities = 1) {
-    def uniqueID = UUID.randomUUID().toString()
     def recordMapping = [
         typeId: "ET5",
         provenance: [
             originId: [
-                originIdType: [ constantValue: "OI.TEST" ],
-                originIdKeys: [[column: 0], [column: 1]]
+                originIdType: [ constantValue: "OI.ANB" ],
+                originIdKeys: [[column: 0]]
             ]
         ],
         properties: [
@@ -42,6 +41,7 @@ def getSubmitBodyMap(int numEntities = 1) {
             ,PER15:  [columns: [[column: 7]]]
             ,PT260:  [columns: [[constantValue: "canine" ]]]
             ,PT440:  [columns: [[constantValue: "bought dogecoin" ]]]
+            ,PT448:   [columns: [[constantValue: "0123456789"]]]
             // ,PER8:  [columns: [[column: 6]]]
             // ,PER99: [columns: [[column: 7]]]
         ],
@@ -52,6 +52,7 @@ def getSubmitBodyMap(int numEntities = 1) {
     ]
     def sourceRecordData = []
     for (int i=0; i<numEntities; i++) {
+        def uniqueID = UUID.randomUUID().toString()
         def name = getRandomFullName()
         def mark = getRandomSentence()
         // def id1 = UUID.randomUUID().toString()

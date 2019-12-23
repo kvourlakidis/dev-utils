@@ -3,7 +3,8 @@
 import sys
 import os
 
-# method definition
+# reflective invocation
+# example: $python examples.py printStin
 def main(args):
     if args:
         print 'Args:'
@@ -15,7 +16,6 @@ def main(args):
                     toCall()
     else:
         print 'Args are empty.'
-
 
 def printStdin():
     if sys.stdin.isatty():

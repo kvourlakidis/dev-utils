@@ -7,9 +7,10 @@ public class HttpHelpers {
     // Globals
     //
     static class Constants {
-        // static final String USER = "user56"
-        static final String USER = "Jenny"
-        static final String PASSWORD = "Jenny"
+        // static final String USER = "Jenny"
+        // static final String PASSWORD = "Jenny"
+        static final String USER = "user56"
+        static final String PASSWORD = "password"
         static String COOKIE = "" // get from server
         //
         // Content-Type
@@ -28,9 +29,9 @@ public class HttpHelpers {
         static final String SUBMIT    = "api/v1/infostore/records/submit" // POST
         static final String ACQUIRE   = "api/v1/connectors/%s/%s"
         static final String AUTH      = "j_security_check"
-        static final String BASE_URL_OPAL  = "http://localhost:9082/opal/"
+        // static final String BASE_URL_OPAL  = "http://localhost:9082/opal/"
         // static final String BASE_URL_OPALDAOD  = "http://localhost:9082/opaldaod/"
-        // static final String BASE_URL_OPAL  = "http://9.20.30.173:9182/opal/"
+        static final String BASE_URL_OPAL = "http://iaplargeperftest002.hursley.ibm.com:9080/opal/"
         //
         static final String ENCODING = "UTF-8"
         static final String LANGUAGE = "en-US"
