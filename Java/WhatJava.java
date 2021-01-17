@@ -6,8 +6,6 @@
  * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
 
-package com.i2group.disco.util.database.sql.internal;
-
 public class WhatJava {
 
   final String S = getC();

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Arrays;
 
 class SearchObjArray {
 	public static void main(String[] args){
