@@ -1,38 +1,76 @@
 package misc;
 
-public class StringLinkedList {
-  Element first;
+import java.util.Iterator;
 
-  StringLinkedList() {
-    first = new Element();
-    first.next = first;
+public class StringLinkedList implements Iterable<String> {
+  private Element first;
+
+  StringLinkedList() {}
+
+  public void append(String s) {
+    final Element el = new Element(s);
+    if (isEmpty()) {
+      first = el;
+    } else {
+      Element last = first;
+      while (last.next != null) {
+        last = last.next;
+      }
+      last.next = el;
+    }
   }
 
-  public void append(String contents) {
-    Element last = first.next;
-  }
-
-  public void prepend(String contents) {
+  public void prepend(String s) {
+    final Element el = new Element(s);
+    el.next = first;
+    first = el;
   }
 
   boolean isEmpty() {
-    return false;
+    return first == null;
   }
 
   public void removeFirst() {
+    if (!isEmpty()) {
+      first = first.next;
+    }
   }
 
   public void removeLast() {
-
+    if (!isEmpty()) {
+      Element el = first;
+      while (el.next != null && el.next.next != null) {
+        el = el.next;
+      }
+      el.next = null;
+    }
   }
 
   @Override
   public String toString() {
-    return super.toString();
+    Element el = first;
+    final StringBuilder sb = new StringBuilder("[");
+    while (el != null) {
+      sb.append(el.s);
+      if (el.next != null) {
+        sb.append(", ");
+      }
+      el = el.next;
+    }
+    return sb.append("]").toString();
+  }
+
+  @Override
+  public Iterator<String> iterator() {
+    return null;
   }
 
   private static class Element {
-    String contents;
+    String s;
     Element next;
+
+    Element(String s) {
+      this.s = s;
+    }
   }
 }
