@@ -25,3 +25,7 @@ hs_err_pid*
 # Misc
 *.swp
 out/
+
+# Gradle
+.gradle
+build/
