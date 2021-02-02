@@ -2,6 +2,9 @@ package misc;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StringLinkedListTest {
@@ -57,5 +60,35 @@ class StringLinkedListTest {
     list.removeFirst();
     assertTrue(list.isEmpty());
     assertEquals("[]", list.toString());
+  }
+
+  @Test
+  public void appendNullThenRemoveTest() {
+    final StringLinkedList list = new StringLinkedList();
+    list.append(null);
+    list.append(null);
+    list.removeLast();
+    list.removeFirst();
+    assertTrue(list.isEmpty());
+    assertEquals("[]", list.toString());
+  }
+
+  @Test
+  public void iteratorTest() {
+    final StringLinkedList list = new StringLinkedList();
+    list.append("foo");
+    list.append("bar");
+    list.append("baz");
+    final Iterator<String> iterator = list.iterator();
+    assertEquals("foo", iterator.next());
+    assertEquals("bar", iterator.next());
+    assertEquals("baz", iterator.next());
+    assertFalse(iterator.hasNext());
+    try {
+      iterator.next();
+      fail();
+    } catch (NoSuchElementException ex) {
+      // pass
+    }
   }
 }

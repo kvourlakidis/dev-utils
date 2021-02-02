@@ -1,6 +1,7 @@
 package misc;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class StringLinkedList implements Iterable<String> {
   private Element first;
@@ -62,7 +63,24 @@ public class StringLinkedList implements Iterable<String> {
 
   @Override
   public Iterator<String> iterator() {
-    return null;
+    return new Iterator<String>() {
+      Element el = first;
+
+      @Override
+      public boolean hasNext() {
+        return el != null;
+      }
+
+      @Override
+      public String next() {
+        if (hasNext()) {
+          final String s = el.s;
+          el = el.next;
+          return s;
+        }
+        throw new NoSuchElementException();
+      }
+    };
   }
 
   private static class Element {
