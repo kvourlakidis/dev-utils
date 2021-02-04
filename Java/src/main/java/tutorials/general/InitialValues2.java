@@ -1,10 +1,4 @@
-package tutorials.general;/*
- * Licensed Materials - Property of IBM
- * 5725-G22
- * (C) Copyright IBM Corp. 2012, 2019 All Rights Reserved.
- * US Government Users Restricted Rights - Use, duplication or
- * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
- */
+package tutorials.general;
 
 public class InitialValues2 {
   final String string1 = getString1();

@@ -3,17 +3,17 @@ package misc;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class StringLinkedList implements Iterable<String> {
-  private Element first;
+public class MyLinkedList<T> implements Iterable<T> {
+  private Element<T> first;
 
-  StringLinkedList() {}
+  MyLinkedList() {}
 
-  public void append(String s) {
-    final Element el = new Element(s);
+  public void append(T value) {
+    final Element<T> el = new Element<>(value);
     if (isEmpty()) {
       first = el;
     } else {
-      Element last = first;
+      Element<T> last = first;
       while (last.next != null) {
         last = last.next;
       }
@@ -21,8 +21,8 @@ public class StringLinkedList implements Iterable<String> {
     }
   }
 
-  public void prepend(String s) {
-    final Element el = new Element(s);
+  public void prepend(T value) {
+    final Element<T> el = new Element<>(value);
     el.next = first;
     first = el;
   }
@@ -37,9 +37,28 @@ public class StringLinkedList implements Iterable<String> {
     }
   }
 
+  public boolean removeFirst(T value) {
+    if (!isEmpty()) {
+      // edge case when first value is removed
+      if (first.value.equals(value)) {
+        removeFirst();
+        return true;
+      }
+      Element<T> element = first;
+      while (element.next != null) {
+        if (element.next.value.equals(value)) {
+          element.next = element.next.next;
+          return true;
+        }
+        element = element.next;
+      }
+    }
+    return false;
+  }
+
   public void removeLast() {
     if (!isEmpty()) {
-      Element el = first;
+      Element<T> el = first;
       while (el.next != null && el.next.next != null) {
         el = el.next;
       }
@@ -49,10 +68,10 @@ public class StringLinkedList implements Iterable<String> {
 
   @Override
   public String toString() {
-    Element el = first;
+    Element<T> el = first;
     final StringBuilder sb = new StringBuilder("[");
     while (el != null) {
-      sb.append(el.s);
+      sb.append(el.value);
       if (el.next != null) {
         sb.append(", ");
       }
@@ -62,9 +81,9 @@ public class StringLinkedList implements Iterable<String> {
   }
 
   @Override
-  public Iterator<String> iterator() {
-    return new Iterator<String>() {
-      Element el = first;
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+      Element<T> el = first;
 
       @Override
       public boolean hasNext() {
@@ -72,9 +91,9 @@ public class StringLinkedList implements Iterable<String> {
       }
 
       @Override
-      public String next() {
+      public T next() {
         if (hasNext()) {
-          final String s = el.s;
+          final T s = el.value;
           el = el.next;
           return s;
         }
@@ -83,12 +102,11 @@ public class StringLinkedList implements Iterable<String> {
     };
   }
 
-  private static class Element {
-    String s;
-    Element next;
-
-    Element(String s) {
-      this.s = s;
+  private static class Element<T> {
+    T value;
+    Element<T> next;
+    Element(T value) {
+      this.value = value;
     }
   }
 }

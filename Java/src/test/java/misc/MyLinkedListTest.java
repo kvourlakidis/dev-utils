@@ -1,5 +1,6 @@
 package misc;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
@@ -7,16 +8,21 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StringLinkedListTest {
+class MyLinkedListTest {
+  MyLinkedList<String> list;
+
+  @BeforeEach
+  public void setup() {
+    list = new MyLinkedList<>();
+  }
+
   @Test
   public void newListIsEmpty() {
-    final StringLinkedList list = new StringLinkedList();
     assertTrue(list.isEmpty());
   }
 
   @Test
   public void appendTest() {
-    final StringLinkedList list = new StringLinkedList();
     list.append("foo");
     assertFalse(list.isEmpty());
     assertEquals("[foo]", list.toString());
@@ -24,7 +30,6 @@ class StringLinkedListTest {
 
   @Test
   public void prependTest() {
-    final StringLinkedList list = new StringLinkedList();
     list.prepend("bar");
     assertFalse(list.isEmpty());
     assertEquals("[bar]", list.toString());
@@ -32,7 +37,6 @@ class StringLinkedListTest {
 
   @Test
   public void appendPrependTest() {
-    final StringLinkedList list = new StringLinkedList();
     list.append("foo");
     list.prepend("bar");
     list.prepend("banana");
@@ -42,7 +46,6 @@ class StringLinkedListTest {
 
   @Test
   public void removeTest() {
-    final StringLinkedList list = new StringLinkedList();
     list.append("foo");
     list.prepend("bar");
     list.prepend("banana");
@@ -64,7 +67,6 @@ class StringLinkedListTest {
 
   @Test
   public void appendNullThenRemoveTest() {
-    final StringLinkedList list = new StringLinkedList();
     list.append(null);
     list.append(null);
     list.removeLast();
@@ -75,7 +77,6 @@ class StringLinkedListTest {
 
   @Test
   public void iteratorTest() {
-    final StringLinkedList list = new StringLinkedList();
     list.append("foo");
     list.append("bar");
     list.append("baz");
@@ -90,5 +91,18 @@ class StringLinkedListTest {
     } catch (NoSuchElementException ex) {
       // pass
     }
+  }
+
+  @Test
+  public void removeFirstTest() {
+    list.append("foo");
+    list.append("bar");
+    list.append("baz");
+    assertTrue(list.removeFirst("bar"));
+    assertEquals("[foo, baz]", list.toString());
+    assertTrue(list.removeFirst("baz"));
+    assertEquals("[foo]", list.toString());
+    assertTrue(list.removeFirst("foo"));
+    assertEquals("[]", list.toString());
   }
 }
