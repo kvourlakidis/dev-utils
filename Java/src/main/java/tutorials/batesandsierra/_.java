@@ -1,5 +1,10 @@
+package tutorials.batesandsierra;
+
 import static java.lang.System.*;
 
+/**
+ * As of Java 9 "_" cannot be used as an identifier.
+ */
 class _ {
 	static public void main(String[] __A_V_) {
 		String $ = "";
