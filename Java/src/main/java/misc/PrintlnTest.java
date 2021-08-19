@@ -13,7 +13,7 @@ public class PrintlnTest {
       for (int i = 0; i < 10; i++) {
         System.out.print("."); // overwrites a space
         System.out.flush();
-        Thread.sleep(100);
+        Thread.sleep(250);
       }
       System.out.print("] Done\n"); // overwrites the ']' + adds chars
       System.out.flush();
