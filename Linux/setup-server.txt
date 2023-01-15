@@ -64,5 +64,18 @@ echo "this is a login banner" >> /etc/issue.net
 # session optional pam_motd.so noupdate
 
 # Harden the networking layer
-# Harden the /etc/sysctl.conf
-# TODO
+# Harden the /etc/sysctl.conf !!! TODO !!!
+
+# Setup KVM
+sudo apt install qemu-kvm
+sudo apt install libvirt-clients
+sudo apt install libvirt-daemon-system
+sudo apt install bridge-utils
+sudo apt install virtinst
+sudo apt install cpu-checker
+# Check KVM is installed
+kvm-ok
+
+# Allow incoming tcp and udp packets on ssh port
+sudo ufw allow 8122
+
