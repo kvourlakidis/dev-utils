@@ -20,14 +20,14 @@
 HISTIGNORE="&\
 :?:??\
 :[ \t]*\
-:cd *\
+:cd:cd \
 :clear\
 :exit\
 :history\
 :jobs\
 :last\
-:ls *\
-:man:man *\
+:ls:ls \
+:man\
 :mount:umount\
 :pwd\
 :shutdown\
